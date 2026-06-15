@@ -72,8 +72,8 @@ Validar que o sistema permite realizar transferências entre contas corretamente
 |---|---|
 | Conta de Origem | Gerada dinamicamente |
 | Conta de Destino | Gerada dinamicamente |
-| Saldo Conta Origem | R$ 100 |
-| Saldo Conta Destino | R$ 50 |
+| Saldo Conta Origem | R$ 1000 |
+| Saldo Conta Destino | R$ 0 |
 | Valor da Transferência | R$ 50 |
 
 **Fluxo de Teste**

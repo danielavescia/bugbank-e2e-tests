@@ -114,6 +114,9 @@
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                        <systemPropertyVariables>
+                            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        </systemPropertyVariables>
                      <annotationProcessorPaths>
                     <path>
                         <groupId>org.projectlombok</groupId>

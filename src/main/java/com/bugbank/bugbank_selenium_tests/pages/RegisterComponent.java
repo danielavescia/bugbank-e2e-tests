@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.bugbank.bugbank_selenium_tests.model.User;
-
 public class RegisterComponent extends BasePage {
 
     private WebElement root;
@@ -24,6 +23,10 @@ public class RegisterComponent extends BasePage {
 
     private final By confirmButton = By.xpath("//button[normalize-space()='Cadastrar']");
 
+    private final By closeModalButton = By.id("btnCloseModal");
+
+    private final By modalText = By.id("modalText");
+
     public RegisterComponent(WebDriver driver){
         super(driver);
         this.root = wait.until(ExpectedConditions.visibilityOfElementLocated(form));
@@ -33,6 +36,13 @@ public class RegisterComponent extends BasePage {
         WebElement el = root.findElement(locator);
         el.clear();
         el.sendKeys(text);
+    }
+
+    public  void closeModalButton(){
+        click(closeModalButton);
+    }
+    public String getModalText(){
+        return waitVisible(modalText).getText();
     }
 
     public RegisterComponent createAccountWithBalance(User user){
