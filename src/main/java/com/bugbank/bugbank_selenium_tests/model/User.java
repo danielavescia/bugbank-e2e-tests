@@ -1,13 +1,11 @@
 package com.bugbank.bugbank_selenium_tests.model;
 
 import java.math.BigDecimal;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class User {
 
     private String email;
@@ -16,7 +14,9 @@ public class User {
 
     private String password;
 
-    private String accountNumber;
+    @Builder.Default
+    private String accountNumber = null;
 
-    private BigDecimal balance;
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
 }
