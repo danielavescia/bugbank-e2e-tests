@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Jun 15 13:39:06 UTC 2026","Mon Jun 15 13:39:13 UTC 2026","7805","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","createSenderAccount","Criação Conta do Sender",""
