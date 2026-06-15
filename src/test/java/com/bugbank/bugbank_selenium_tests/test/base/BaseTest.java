@@ -7,15 +7,17 @@ import com.bugbank.bugbank_selenium_tests.factory.DriverManager;
 
 public class BaseTest {
 
-    private WebDriver driver;
+    protected WebDriver driver;
 
     @BeforeEach 
-    public void startDriver(){
+    public void startDriver() {
         driver = new DriverManager().initializeDriver();
     }
 
     @AfterEach
-    public void quitDriver(){
-        driver.quit();
+    public void quitDriver() {
+        if(driver != null){
+            driver.quit();
+        }
     }
 }
