@@ -1,12 +1,3 @@
----
-name: Feature
-about: Nova funcionalidade ou tarefa do projeto
-title: "[FEAT]"
-labels: feature
-assignees: ''
-
----
-
 ## Descrição
 <!-- O que precisa ser feito? -->
 
