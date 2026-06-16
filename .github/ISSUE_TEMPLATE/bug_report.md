@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Reportar um erro encontrado
-title: "[BUG]"
+title: "[BUG][SEVERIDADE]"
 labels: bug
 assignees: ''
 
@@ -35,7 +35,7 @@ assignees: ''
 ## Logs / Prints
 <!-- Cole aqui o erro ou print da tela -->
 
-## 🔥 Severidade
+## Severidade
 - [ ] 🔴 Crítico — sistema parado
 - [ ] 🟠 Alto — funcionalidade quebrada
 - [ ] 🟡 Médio — funcionalidade parcial
