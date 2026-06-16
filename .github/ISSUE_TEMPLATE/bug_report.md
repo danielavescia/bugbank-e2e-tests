@@ -1,12 +1,3 @@
----
-name: Bug report
-about: Reportar um erro encontrado
-title: "[BUG]"
-labels: bug
-assignees: ''
-
----
-
 ## Descrição do Bug
 <!-- O que aconteceu? -->
 
@@ -27,7 +18,7 @@ assignees: ''
 - [ ] Check 3 — Tranferir valor entre contas
 - [ ] Check 4 — Verificar saldo após trasnferências
 
-## 🖥️ Ambiente
+## Ambiente
 - Java version:
 - Spring Boot version:
 - OS:
