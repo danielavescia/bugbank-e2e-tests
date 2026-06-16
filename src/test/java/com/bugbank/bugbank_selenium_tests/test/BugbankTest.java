@@ -1,6 +1,6 @@
 package com.bugbank.bugbank_selenium_tests.test;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,17 +9,16 @@ import com.bugbank.bugbank_selenium_tests.pages.HomePage;
 import com.bugbank.bugbank_selenium_tests.pages.RegisterComponent;
 import com.bugbank.bugbank_selenium_tests.test.base.BaseTest;
 import com.bugbank.bugbank_selenium_tests.utils.DataGenerator;
-
 import io.qameta.allure.Step;
 
 public class BugbankTest extends BaseTest{
    
-    private User sender;
+    private static User sender;
 
     //private User receiver;
     
-    @BeforeEach
-    void setUpPage() {
+    @BeforeAll
+    static void setUpPage() {
         sender = User.builder()
             .name(DataGenerator.genereteName())
             .email(DataGenerator.generateEmail())
@@ -29,6 +28,7 @@ public class BugbankTest extends BaseTest{
 
     @Test
     @DisplayName("Criação Conta do Sender")
+    @Step("Verificar criação da conta de {user.name}")
     public void createSenderAccount(){
        RegisterComponent registerComponent  = new HomePage(driver)
                         .load()
