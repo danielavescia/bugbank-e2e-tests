@@ -28,9 +28,10 @@ public class HomePage extends BasePage {
         return new RegisterComponent(driver);
     }
 
-    public void Login(User user){
+    public AccountPage login(User user){
         type(emailField, user.getEmail());
         type(passwordField, user.getPassword());
         click(loginButton);
+        return new AccountPage(driver);
     }
 }
