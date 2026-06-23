@@ -1,6 +1,9 @@
 package com.bugbank.bugbank_selenium_tests.utils;
 
 import java.util.Locale;
+
+import com.bugbank.bugbank_selenium_tests.model.User;
+
 import net.datafaker.Faker;
 
 public class DataGenerator {
@@ -17,5 +20,12 @@ public class DataGenerator {
     
     public static String generetePassword(){
         return faker.internet().password(6, 9);
+    }
+
+    public static User generateUser(){
+        return User.builder()
+                .name(genereteName())
+                .email(generateEmail())
+                .password(generetePassword()).build();
     }
 }
