@@ -38,14 +38,15 @@ public class RegisterComponent extends BasePage {
         el.sendKeys(text);
     }
 
-    public  void closeModalButton(){
+    private  void closeModal(){
         click(closeModalButton);
     }
-    public String getModalText(){
+    
+    private String getModalText(){
         return waitVisible(modalText).getText();
     }
 
-    public RegisterComponent createAccountWithBalance(User user){
+    private RegisterComponent createAccountWithBalance(User user){
         typeInside(emailField, user.getEmail());
         typeInside(nameField, user.getName());
         typeInside(passwordField, user.getPassword());
@@ -53,5 +54,12 @@ public class RegisterComponent extends BasePage {
         click(toggleAddBalance);
         click(confirmButton);
         return this;
+    }
+
+    public String createAccountWithBalanceAndGetModalText(User user){
+        createAccountWithBalance(user);
+        String text = getModalText();
+        closeModal();
+        return text;
     }
 }
