@@ -25,32 +25,30 @@ public class AccountPage extends BasePage{
 
 
     public User findAndReturnUserAccountDetails(User user){
-        
         loadAccountPage();
-        
-        try{
-            if(!user.getName().equals(getUsername())){
-                throw new IllegalStateException("Usuário esperado: " + user.getName() + ", mas encontrou: " + getUsername());
-            }
-
-            user.setAccountNumber(getAccountNumber(user));
-            user.setBalance(getAccountBalance());
-
-        }catch(IllegalStateException ex){
-            throw ex;
-
-        }catch(Exception e ){
-            throw new RuntimeException("Erro ao capturar os dados da conta do usuário", e);
-        }
-
+        validateUser(user);
+        setAccountData(user);
         return user;
     }
 
     private void loadAccountPage(){
         driver.getCurrentUrl().equals(urlAccountPage);
+        waitVisible(userName);
     }
 
-    private String getAccountNumber(User user){
+    private void validateUser(User user){
+        String actualName = getUsername();
+        if(!user.getName().equals(actualName)){
+            throw new IllegalStateException("Usuário esperado: " + user.getName() + ", mas encontrou: " + actualName);
+        }
+    }
+
+    private void setAccountData(User user){
+        user.setAccountNumber(getAccountNumber());
+        user.setBalance(getAccountBalance());
+    }
+
+    private String getAccountNumber(){
        return waitVisible(accountNumber)
             .getText()
             .replace("Conta digital: ", "")
