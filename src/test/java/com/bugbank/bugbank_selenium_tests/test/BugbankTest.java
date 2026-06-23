@@ -1,6 +1,5 @@
 package com.bugbank.bugbank_selenium_tests.test;
 
-
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -11,13 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-
 import com.bugbank.bugbank_selenium_tests.model.User;
 import com.bugbank.bugbank_selenium_tests.pages.AccountPage;
 import com.bugbank.bugbank_selenium_tests.pages.HomePage;
 import com.bugbank.bugbank_selenium_tests.test.base.BaseTest;
 import com.bugbank.bugbank_selenium_tests.utils.DataGenerator;
-
 import io.qameta.allure.Step;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -27,8 +24,7 @@ public class BugbankTest extends BaseTest{
    
     static {
         users.put("Sender", DataGenerator.generateUser());
-        users.put("Receiver",  DataGenerator.generateUser());
-        
+        users.put("Receiver",  DataGenerator.generateUser());   
     }
     
     static Stream<Arguments> provideUsers() {

@@ -1,10 +1,8 @@
 package com.bugbank.bugbank_selenium_tests.pages;
 
 import java.math.BigDecimal;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.bugbank.bugbank_selenium_tests.model.User;
 
 public class AccountPage extends BasePage{
@@ -53,7 +51,10 @@ public class AccountPage extends BasePage{
     }
 
     private String getAccountNumber(User user){
-       return waitVisible(accountNumber).getText();
+       return waitVisible(accountNumber)
+            .getText()
+            .replace("Conta digital: ", "")
+            .trim();
     }
 
     private String getUsername(){

@@ -1,9 +1,7 @@
 package com.bugbank.bugbank_selenium_tests.utils;
 
 import java.util.Locale;
-
 import com.bugbank.bugbank_selenium_tests.model.User;
-
 import net.datafaker.Faker;
 
 public class DataGenerator {
