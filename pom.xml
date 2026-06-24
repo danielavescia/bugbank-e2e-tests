@@ -19,6 +19,8 @@
 
     <properties>
         <java.version>17</java.version>
+        <aspectj.version>1.9.22</aspectj.version>
+        <allure.version>2.23.0</allure.version>
     </properties>
 
     <dependencyManagement>
@@ -26,7 +28,7 @@
             <dependency>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-bom</artifactId>
-                <version>2.23.0</version>
+                <version>${allure.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -41,11 +43,11 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Selenium -->
         <dependency>
@@ -60,8 +62,8 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-       
-       <!-- Faker -->
+
+        <!-- Faker -->
         <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>
@@ -75,17 +77,18 @@
             <version>5.8.0</version>
         </dependency>
 
-        <!-- Allure -->
+        <!-- Allure JUnit5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
         </dependency>
 
+        <!-- Allure Selenide -->
         <dependency>
-    		<groupId>io.qameta.allure</groupId>
-    		<artifactId>allure-selenide</artifactId>
-    		<version>2.23.0</version>
-		</dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
 
         <!-- AssertJ -->
         <dependency>
@@ -94,44 +97,86 @@
             <version>3.25.3</version>
             <scope>test</scope>
         </dependency>
-        
-        <!-- ...Lombok... -->
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- AspectJ (runtime, necessário para @Step funcionar) -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
 
-            <!-- Rodar testes -->
+            <!-- Garante que o aspectjweaver seja resolvido antes do Surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-aspectjweaver</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.aspectj</groupId>
+                                    <artifactId>aspectjweaver</artifactId>
+                                    <version>${aspectj.version}</version>
+                                    <outputDirectory>${project.build.directory}/agents</outputDirectory>
+                                    <destFileName>aspectjweaver.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Surefire com AspectJ agent para os @Step do Allure funcionarem -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
-                        <systemPropertyVariables>
-                            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-                        </systemPropertyVariables>
-                     <annotationProcessorPaths>
-                    <path>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>1.18.32</version>
-                    </path>
-                </annotationProcessorPaths>
+                    <argLine>
+                        -javaagent:${project.build.directory}/agents/aspectjweaver.jar
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                    </argLine>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.32</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
-            <!-- Allure -->
+            <!-- Allure Report -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version>
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                </configuration>
             </plugin>
 
         </plugins>
