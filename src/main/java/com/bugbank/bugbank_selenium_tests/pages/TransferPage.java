@@ -7,5 +7,4 @@ public class TransferPage extends BasePage{
     public TransferPage(WebDriver driver) {
         super(driver);
     }
-
 }

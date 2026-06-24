@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.bugbank.bugbank_selenium_tests.model.User;
+
+import io.qameta.allure.Step;
 public class RegisterComponent extends BasePage {
 
     private WebElement root;
@@ -19,7 +21,7 @@ public class RegisterComponent extends BasePage {
 
     private final By passwordConfirmationField = By.name("passwordConfirmation");
 
-    private final By toggleAddBalance = By.xpath("//div[contains(@class,'ContainerToggle')]//span");
+    private final By toggleAddBalance =  By.xpath("//p[normalize-space()='Criar conta com saldo ?']/following::label[1]");
 
     private final By confirmButton = By.xpath("//button[normalize-space()='Cadastrar']");
 
@@ -32,34 +34,49 @@ public class RegisterComponent extends BasePage {
         this.root = wait.until(ExpectedConditions.visibilityOfElementLocated(form));
     }
 
-    private void typeInside(By locator, String text){
-        WebElement el = root.findElement(locator);
-        el.clear();
-        el.sendKeys(text);
+    @Step("Cria conta com saldo para o usuário {user.name}")
+    public String createAccountWithBalanceAndGetModalText(User user){
+        fillForm(user);
+        enableBalanceOption();
+        clickRegister();
+
+        String message = getSucessMessage();
+        closeModal();
+        return message;
+    }
+    
+    @Step("Preenche formulário de cadastro")
+    private RegisterComponent fillForm(User user){
+        typeInside(nameField, user.getName());
+        typeInside(emailField, user.getEmail());
+        typeInside(passwordField, user.getPassword());
+        typeInside(passwordConfirmationField, user.getPassword());
+        return this;
     }
 
+    @Step("Ativa opção de criar conta com saldo")
+    private void enableBalanceOption(){
+         click(toggleAddBalance);
+    }
+
+    @Step("Clica em Cadastrar")
+    private void clickRegister(){
+        click(confirmButton);
+    }
+
+    @Step("Obtém mensagem de sucesso do modal")
+    private String getSucessMessage(){
+        return waitVisible(modalText).getText();
+    }
+
+    @Step("Fecha o modal de sucesso")
     private  void closeModal(){
         click(closeModalButton);
     }
     
-    private String getModalText(){
-        return waitVisible(modalText).getText();
-    }
-
-    private RegisterComponent createAccountWithBalance(User user){
-        typeInside(emailField, user.getEmail());
-        typeInside(nameField, user.getName());
-        typeInside(passwordField, user.getPassword());
-        typeInside(passwordConfirmationField, user.getPassword());
-        click(toggleAddBalance);
-        click(confirmButton);
-        return this;
-    }
-
-    public String createAccountWithBalanceAndGetModalText(User user){
-        createAccountWithBalance(user);
-        String text = getModalText();
-        closeModal();
-        return text;
+    private void typeInside(By locator, String text){
+        WebElement el = root.findElement(locator);
+        el.clear();
+        el.sendKeys(text);
     }
 }

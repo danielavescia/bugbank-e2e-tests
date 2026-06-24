@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.bugbank.bugbank_selenium_tests.model.User;
 
+import io.qameta.allure.Step;
+
 public class AccountPage extends BasePage{
 
     public AccountPage(WebDriver driver) {
@@ -31,16 +33,19 @@ public class AccountPage extends BasePage{
         return user;
     }
 
+    @Step("Verifica que o usuário logou")
     private void loadAccountPage(){
         driver.getCurrentUrl().equals(urlAccountPage);
         waitVisible(userName);
     }
 
+    @Step("Navega para Página de Transferência")
     private TransferPage navigateToTransfer(){
         click(transferButton);
         return new TransferPage(driver);
     }
 
+    @Step("Verifica se o nome exibido na home equivale ao usuário")
     private void validateUser(User user){
         String actualName = getUsername();
         if(!user.getName().equals(actualName)){
@@ -53,6 +58,7 @@ public class AccountPage extends BasePage{
         user.setBalance(getAccountBalance());
     }
 
+    @Step("Obtem número da conta")
     private String getAccountNumber(){
        return waitVisible(accountNumber)
             .getText()
@@ -60,14 +66,7 @@ public class AccountPage extends BasePage{
             .trim();
     }
 
-    private String getUsername(){
-       return waitVisible(userName)
-            .getText()
-            .replace("Olá", "")
-            .replace(",", "")
-            .trim();
-    }
-
+    @Step("Obtem saldo atual")
     private BigDecimal getAccountBalance(){
         return parseBalance (waitVisible(accountBalance).getText());
     }
@@ -82,5 +81,13 @@ public class AccountPage extends BasePage{
         } catch(NumberFormatException e){
              throw new RuntimeException("Erro ao converter saldo para BigDecimal. Valor recebido: '" + stringBalance + "'", e);
         }
+    }
+
+    private String getUsername(){
+       return waitVisible(userName)
+            .getText()
+            .replace("Olá", "")
+            .replace(",", "")
+            .trim();
     }
 }
