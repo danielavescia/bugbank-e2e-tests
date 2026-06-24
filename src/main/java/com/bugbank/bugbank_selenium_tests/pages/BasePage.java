@@ -27,6 +27,10 @@ public class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected void waitForUrlContains(String url){
+        wait.until(ExpectedConditions.urlContains(url));
+    }
+
     protected void click(By locator){
          try {
             waitClickable(locator).click();
@@ -40,6 +44,10 @@ public class BasePage {
         WebElement element = waitVisible(locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    protected String getText(By element){
+        return waitVisible(element).getText();
     }
 
     public void load(String endPoint){

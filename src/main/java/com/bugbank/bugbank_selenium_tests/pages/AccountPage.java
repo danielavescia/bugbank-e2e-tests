@@ -36,6 +36,11 @@ public class AccountPage extends BasePage{
         waitVisible(userName);
     }
 
+    private TransferPage navigateToTransfer(){
+        click(transferButton);
+        return new TransferPage(driver);
+    }
+
     private void validateUser(User user){
         String actualName = getUsername();
         if(!user.getName().equals(actualName)){
