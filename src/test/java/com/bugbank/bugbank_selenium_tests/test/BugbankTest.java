@@ -41,6 +41,7 @@ public class BugbankTest extends BaseTest{
                                     .load()
                                     .navigateToRegister()
                                     .createAccountWithBalanceAndGetModalText(user);
+                                    
         verifyAccountCreated(expectedModalText, user);
 
         AccountPage page =  new HomePage(driver).load().login(user);
