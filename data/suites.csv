@@ -1,2 +1,3 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Tue Jun 16 15:58:26 UTC 2026","Tue Jun 16 15:58:47 UTC 2026","21054","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","createSenderAccount","Criação Conta do Sender",""
+"passed","Wed Jun 24 14:37:05 UTC 2026","Wed Jun 24 14:37:24 UTC 2026","18625","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","createAndVerifyAccount","createAndVerifyAccount(String, User) Criação de conta e login user:Sender",""
+"passed","Wed Jun 24 14:37:24 UTC 2026","Wed Jun 24 14:37:30 UTC 2026","6322","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","","com.bugbank.bugbank_selenium_tests.test.BugbankTest","createAndVerifyAccount","createAndVerifyAccount(String, User) Criação de conta e login user:Receiver",""
