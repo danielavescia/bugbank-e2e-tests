@@ -49,7 +49,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    @Step("Realiza login com usuário {user.getUsername()}")
+    @Step("Realiza login com usuário {user.name}")
     public AccountPage login(User user){
         fillEmail(user.getEmail());
         fillPassword(user.getPassword());
