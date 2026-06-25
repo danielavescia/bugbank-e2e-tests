@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -41,12 +42,12 @@ public class BugbankTest extends BaseTest{
                                     .load()
                                     .navigateToRegister()
                                     .createAccountWithBalanceAndGetModalText(user);
-                                    
+
         verifyAccountCreated(expectedModalText, user);
 
         AccountPage page =  new HomePage(driver).load().login(user);
         User userExpected = page.findAndReturnUserAccountDetails(user);
-        assertThat(userExpected.getName()).contains(user.getName());
+        assertUserDetails(userExpected, user);
     }
 
     
@@ -55,5 +56,17 @@ public class BugbankTest extends BaseTest{
         assertThat(expectedModalText)
             .as("Modal deve aparecer após criação da conta com sucesso do %s", user.getName())
             .contains("foi criada com sucesso");
+    }
+
+    @Step("Verifica captura de dados do usuário")
+    private void assertUserDetails(User expectedUser, User actualUser){
+        assertThat(actualUser.getAccountNumber())
+            .as("Número da conta não deve ser nulo")
+            .isNotNull()
+            .isNotEmpty();
+        
+        assertThat(actualUser.getBalance())
+                .as("Era esperado balanço superior a 0, mas foi encontrado: %s", actualUser.getBalance())
+                .isGreaterThan(BigDecimal.ZERO);
     }
 }

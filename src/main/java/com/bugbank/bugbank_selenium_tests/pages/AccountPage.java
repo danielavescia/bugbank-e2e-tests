@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.bugbank.bugbank_selenium_tests.model.User;
-
 import io.qameta.allure.Step;
 
 public class AccountPage extends BasePage{
@@ -86,7 +85,7 @@ public class AccountPage extends BasePage{
     private String getUsername(){
        return waitVisible(userName)
             .getText()
-            .replace("Olá", "")
+            .replace("Olá ", "")
             .replace(",", "")
             .trim();
     }

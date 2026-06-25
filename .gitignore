@@ -8,3 +8,4 @@ target/
 .vscode/
 
 allure-results
+.allure
