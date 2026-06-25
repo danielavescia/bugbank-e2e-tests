@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.bugbank.bugbank_selenium_tests.model.User;
-
 import io.qameta.allure.Step;
 public class RegisterComponent extends BasePage {
 
