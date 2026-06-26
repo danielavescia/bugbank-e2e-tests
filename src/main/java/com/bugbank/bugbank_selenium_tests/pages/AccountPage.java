@@ -41,7 +41,7 @@ public class AccountPage extends BasePage{
     }
 
     @Step("Navega para Página de Transferência")
-    private TransferPage navigateToTransfer(){
+    public TransferPage navigateToTransfer(){
         click(transferButton);
         return new TransferPage(driver);
     }
