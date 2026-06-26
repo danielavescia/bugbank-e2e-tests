@@ -35,6 +35,7 @@ public class BasePage {
         WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
     }
+    
     protected void click(By locator){
          try {
             waitClickable(locator).click();
