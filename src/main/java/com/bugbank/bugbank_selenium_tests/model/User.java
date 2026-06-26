@@ -18,5 +18,8 @@ public class User {
     private String accountNumber = null;
 
     @Builder.Default
+    private String digit = null;
+
+    @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
 }

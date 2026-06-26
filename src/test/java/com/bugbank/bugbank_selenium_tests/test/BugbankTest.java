@@ -60,13 +60,19 @@ public class BugbankTest extends BaseTest{
 
     @Step("Verifica captura de dados do usuário")
     private void assertUserDetails(User expectedUser, User actualUser){
+
         assertThat(actualUser.getAccountNumber())
             .as("Número da conta não deve ser nulo")
             .isNotNull()
             .isNotEmpty();
+
+        assertThat(actualUser.getDigit())
+            .as("Digito da conta não deve ser nulo")
+            .isNotNull()
+            .isNotEmpty();
         
         assertThat(actualUser.getBalance())
-                .as("Era esperado balanço superior a 0, mas foi encontrado: %s", actualUser.getBalance())
-                .isGreaterThan(BigDecimal.ZERO);
+                .as("Era esperado balanço igual a 1000.00, mas foi encontrado: %s", actualUser.getBalance())
+                .isEqualByComparingTo(new BigDecimal("1000.00"));
     }
 }

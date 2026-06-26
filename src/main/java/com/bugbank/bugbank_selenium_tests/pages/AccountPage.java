@@ -1,6 +1,8 @@
 package com.bugbank.bugbank_selenium_tests.pages;
 
 import java.math.BigDecimal;
+import java.util.StringTokenizer;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.bugbank.bugbank_selenium_tests.model.User;
@@ -52,22 +54,28 @@ public class AccountPage extends BasePage{
         }
     }
 
-    private void setAccountData(User user){
-        user.setAccountNumber(getAccountNumber());
-        user.setBalance(getAccountBalance());
-    }
-
-    @Step("Obtem número da conta")
-    private String getAccountNumber(){
-       return waitVisible(accountNumber)
-            .getText()
-            .replace("Conta digital: ", "")
-            .trim();
+    @Step("Obtem número e digito da conta")
+    private void getAccountDetails(User user){
+       StringTokenizer st = new StringTokenizer(getAccountDetails(), "-");
+       user.setAccountNumber(st.nextToken().trim());
+       user.setDigit(st.nextToken().trim());
     }
 
     @Step("Obtem saldo atual")
     private BigDecimal getAccountBalance(){
         return parseBalance (waitVisible(accountBalance).getText());
+    }
+
+    private void setAccountData(User user){
+        getAccountDetails(user);
+        user.setBalance(getAccountBalance());
+    }
+
+    private String getAccountDetails(){
+       return waitVisible(accountNumber)
+            .getText()
+            .replace("Conta digital: ", "")
+            .trim();
     }
 
     private BigDecimal parseBalance(String stringBalance){
