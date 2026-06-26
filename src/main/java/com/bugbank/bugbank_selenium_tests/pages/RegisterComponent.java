@@ -20,8 +20,8 @@ public class RegisterComponent extends BasePage {
 
     private final By passwordConfirmationField = By.name("passwordConfirmation");
 
-    private final By toggleAddBalance =  By.xpath("//p[normalize-space()='Criar conta com saldo ?']/following::label[1]");
-
+    private final By toggleAddBalance = By.id("toggleAddBalance");
+    
     private final By confirmButton = By.xpath("//button[normalize-space()='Cadastrar']");
 
     private final By closeModalButton = By.id("btnCloseModal");
@@ -55,7 +55,7 @@ public class RegisterComponent extends BasePage {
 
     @Step("Ativa opção de criar conta com saldo")
     private void enableBalanceOption(){
-         click(toggleAddBalance);
+         jsClick(toggleAddBalance);
     }
 
     @Step("Clica em Cadastrar")
