@@ -52,6 +52,7 @@ public class BugbankTest extends BaseTest{
 
         assertTransferSuccess(successMessage);
         assertSenderBalanceAfterTransfer(sender, new BigDecimal(transferValue));
+        assertReceiverBalanceAfterTransfer(receiver, new BigDecimal(transferValue));
     }
 
     @Step("Cria conta com saldo para {user.name}")
@@ -108,6 +109,16 @@ public class BugbankTest extends BaseTest{
 
         assertThat(sender.getBalance())
                 .as("Saldo esperado após transferência: %s, encontrado: %s", expectedBalance, sender.getBalance())
+                .isEqualByComparingTo(expectedBalance);
+    }
+
+    @Step("Verifica saldo do receiver após transferência de {transferValue}")
+    private void assertReceiverBalanceAfterTransfer(User receiver, BigDecimal transferValue) {
+        fetchAccountDetails(receiver);
+        BigDecimal expectedBalance = new BigDecimal("1000.00").add(transferValue);
+
+        assertThat(receiver.getBalance())
+                .as("Saldo esperado após transferência: %s, encontrado: %s", expectedBalance, receiver.getBalance())
                 .isEqualByComparingTo(expectedBalance);
     }
 }
